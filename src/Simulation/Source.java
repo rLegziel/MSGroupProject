@@ -115,4 +115,13 @@ public class Source implements CProcess
 		double res = -mean*Math.log(u);
 		return res;
 	}
+	
+	public static double drawRandomNormal(double mean,double stdev)
+	{
+		// draw a [0,1] uniform distributed number
+		double u = Math.random();
+		// Convert it into a random number from the given normal distribution
+		double res = stdev*u+ mean;
+		return res;
+	}
 }
