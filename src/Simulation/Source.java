@@ -124,4 +124,35 @@ public class Source implements CProcess
 		double res = stdev*u+ mean;
 		return res;
 	}
+	// Calculate the rate based on the sinusoid
+	// hour needs to be in a 24hr time, so 3PM =15
+	public static double calculatueSinusoid(double hour) {
+		if (hour >= 9) {
+			if (hour <= 15) {
+				double minusNine = hour - 9;
+				double currentRate = 2 + minusNine * 0.3;
+				return currentRate;
+			} else if (hour <= 21) {
+				double minusFifteen = hour - 15;
+				double currentRate = 3.8 - minusFifteen * 0.3;
+				return currentRate;
+			} else if (hour <= 24) {
+				double minusTwentyOne = hour - 21;
+				double currentRate = 2 - minusTwentyOne * 0.3;
+				return currentRate;
+			}
+		else if(hour <=3){
+			double threeMinus  = 3-hour;
+			double currentRate = 0.2 + threeMinus*0.3;
+			return currentRate;
+			}
+		}
+		else{
+		double nineMinus = 9 - hour;
+		double currentRate = 0.2 + nineMinus*0.3;
+		return currentRate;
+		}
+	return 1; // if this returns we have an issue
+	}
+	
 }
