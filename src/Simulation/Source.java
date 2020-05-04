@@ -154,5 +154,16 @@ public class Source implements CProcess
 		}
 	return 1; // if this returns we have an issue
 	}
+	// Compute arrival rate based on sinusoid
+	// hour needs to be in a 24hr time, so 3:30PM = 15:30
+	public static double getArrivalRate(double time){
+		//convert the minutes to decimal value : 15h30 -> 15.5
+		double hour = (int)time;
+		double minutes = (time-hour)*(10/6);
+		time = hour + minutes;
+
+		double rate = 1.8*Math.sin((Math.PI/12)*(time-9))+2;
+		return rate;
+	}
 	
 }
