@@ -1,5 +1,7 @@
 package Simulation;
 
+import java.util.ArrayList;
+
 /**
  *	A source of products
  *	This class implements CProcess so that it can execute events.
@@ -124,46 +126,93 @@ public class Source implements CProcess
 		double res = stdev*u+ mean;
 		return res;
 	}
-	// Calculate the rate based on the sinusoid
-	// hour needs to be in a 24hr time, so 3PM =15
-	public static double calculatueSinusoid(double hour) {
-		if (hour >= 9) {
-			if (hour <= 15) {
-				double minusNine = hour - 9;
-				double currentRate = 2 + minusNine * 0.3;
-				return currentRate;
-			} else if (hour <= 21) {
-				double minusFifteen = hour - 15;
-				double currentRate = 3.8 - minusFifteen * 0.3;
-				return currentRate;
-			} else if (hour <= 24) {
-				double minusTwentyOne = hour - 21;
-				double currentRate = 2 - minusTwentyOne * 0.3;
-				return currentRate;
-			}
-		else if(hour <=3){
-			double threeMinus  = 3-hour;
-			double currentRate = 0.2 + threeMinus*0.3;
-			return currentRate;
-			}
-		}
-		else{
-		double nineMinus = 9 - hour;
-		double currentRate = 0.2 + nineMinus*0.3;
-		return currentRate;
-		}
-	return 1; // if this returns we have an issue
-	}
-	// Compute arrival rate based on sinusoid
+	// Compute arrival rate of consumer call based on sinusoid
 	// hour needs to be in a 24hr time, so 3:30PM = 15:30
-	public static double getArrivalRate(double time){
-		//convert the minutes to decimal value : 15h30 -> 15.5
-		double hour = (int)time;
-		double minutes = (time-hour)*(10/6);
-		time = hour + minutes;
-
+	public static double getArrivalRateConsumer(double time){
 		double rate = 1.8*Math.sin((Math.PI/12)*(time-9))+2;
-		return rate;
+		return 60*rate;//get rate per hour
+	}
+
+	// Compute arrival rate of corporate customer call based on time
+	// hour needs to be in a 24hr time, so 3:30PM = 15:30
+	public static double getArrivalRateCorporate(double time){
+		double rate=0;
+
+		if(time >= 8 && time < 18){ //rate between 8am-6pm
+			rate = 1;
+		}else{ //rate between 6pm-8am  if((time >= 0 && time < 8) || (time >= 18 && time < 24))
+			rate = 0.2;
+		}
+		return rate*60;//get rate per hour
+	}
+
+	//return the next arrival time of consumer call, given the previous one
+	public static double getNextTimeConsumer(double t_1){
+		double maxRate = 3.8*60; //highest arrival rate, reached at 3pm
+		double t=t_1;
+		double u1 = 1;
+		double u2 = 1;
+		double currentRate = 1;
+		boolean flag = true;
+
+		while(flag) {
+			u1 = Math.random(); // draw a [0,1] uniform distributed number
+			u2 = Math.random(); // draw a [0,1] uniform distributed number, independent from u1
+			t = t - (1/maxRate)*Math.log(u1);
+			currentRate = getArrivalRateConsumer(t); //get current arrival rate
+			if(u2*maxRate <= currentRate) {
+				flag = false;
+			}
+		}
+
+		return t;
+	}
+
+	//return the next arrival time of corporate customer call, given the previous one
+	public static double getNextTimeCorporate(double t_1){
+		double u = Math.random();// draw a [0,1] uniform distributed number
+		double currentRate = getArrivalRateCorporate(t_1);
+		double t = t_1-(1/currentRate)*Math.log(u);
+
+		return t;
+	}
+
+	//generate an arraylist containing all calling times of consumers over 24h
+	public static ArrayList<Double> getArrivalTimesConsumers(){
+		ArrayList<Double> arrivalTimes = new ArrayList<>();
+		arrivalTimes.add(getNextTimeConsumer(0)); //get first arrival time
+		double currentT = arrivalTimes.get(0);
+		int i=1;
+		while(currentT < 24){
+			arrivalTimes.add(getNextTimeConsumer(currentT));
+			currentT = arrivalTimes.get(i);
+			i++;
+		}
+		for(int j=0; j<arrivalTimes.size(); j++) {
+			if(arrivalTimes.get(j) > 24) {
+				arrivalTimes.remove(j);
+			}
+		}
+		return arrivalTimes;
+	}
+
+	//generate an arraylist containing all calling times of corporate customers over 24h
+	public static ArrayList<Double> getArrivalTimesCorporate(){
+		ArrayList<Double> arrivalTimes = new ArrayList<>();
+		arrivalTimes.add(getNextTimeCorporate(0)); //get first arrival time
+		double currentT = arrivalTimes.get(0);
+		int i=1;
+		while(currentT < 24){
+			arrivalTimes.add(getNextTimeCorporate(currentT));
+			currentT = arrivalTimes.get(i);
+			i++;
+		}
+		for(int j=0; j<arrivalTimes.size(); j++) {
+			if(arrivalTimes.get(j) > 24) {
+				arrivalTimes.remove(j);
+			}
+		}
+		return arrivalTimes;
 	}
 	
 }
