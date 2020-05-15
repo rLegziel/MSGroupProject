@@ -129,7 +129,7 @@ public class Source implements CProcess
 		double res = stdev*u+ mean;
 
 		if (res < 25){ // rejection sampling
-		return drawRandomNormalConsumer()
+			return drawRandomNormalConsumer();
 		}
 		else{
 		return res;
@@ -141,12 +141,12 @@ public class Source implements CProcess
 		// draw a [0,1] uniform distributed number
 		double u = Math.random();
 		double mean = 216;
-		double stdev = 72
+		double stdev = 72;
 		// Convert it into a random number from the given normal distribution
 		double res = stdev*u+ mean;
 
 		if (res< 45){ // rejection sampling
-		return drawRandomNormalCorporate()
+			return drawRandomNormalCorporate();
 		}
         else{
 		return res;

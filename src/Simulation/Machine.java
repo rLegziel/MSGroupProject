@@ -48,6 +48,10 @@ public class Machine implements CProcess,ProductAcceptor
 		queue.askProduct(this);
 	}
 
+	public Machine() {
+
+	}
+
 	/**
 	*	Constructor
 	*        Service times are exponentially distributed with specified mean
