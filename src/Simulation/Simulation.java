@@ -33,6 +33,7 @@ public class Simulation {
 //	Machine m = new Machine(q,si,l,"Machine 1");
 //	// start the eventlist
 //	l.start(2000); // 2000 is maximum time
+
     Source s2 = new Source(q,l,"source 1");
 
     ArrayList<Double> arrTCons = s2.getArrivalTimesConsumers();

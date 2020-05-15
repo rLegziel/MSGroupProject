@@ -20,6 +20,7 @@ public class Queue implements ProductAcceptor
 	*/
 	public Queue()
 	{
+
 		row = new ArrayList<>();
 		requests = new ArrayList<>();
 	}
