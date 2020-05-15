@@ -1,7 +1,7 @@
 package Simulation;
 
 
-public class CSACorporate extends Machine {
+public class CSAConsumer extends Machine {
 
     /**
      * Product that is being handled
@@ -11,10 +11,6 @@ public class CSACorporate extends Machine {
      * Eventlist that will manage events
      */
     private final CEventList eventlist;
-    /**
-     * Corporate queue
-     */
-    private Queue corQueue;
     /**
      * consumer queue
      */
@@ -37,10 +33,9 @@ public class CSACorporate extends Machine {
     private int procCnt;
 
 
-    public CSACorporate(CEventList evList, Queue cons, Queue corporate, ProductAcceptor si, String n) {
+    public CSAConsumer(CEventList evList, Queue cons, ProductAcceptor si, String n) {
         eventlist = evList;
         consQueue = cons;
-        corQueue = corporate;
         sink = si;
         name = n;
     }
@@ -64,11 +59,8 @@ public class CSACorporate extends Machine {
         // set machine status to idle
         status = 'i';
 
+        consQueue.askProduct(this);
 
-        boolean corAsk = corQueue.askProduct(this);
-        if (corAsk == false) {
-            consQueue.askProduct(this);
-        }
     }
 
     public boolean giveProduct(Product p) {
@@ -90,12 +82,7 @@ public class CSACorporate extends Machine {
     private void startProduction() {
         // if its corporate call, draw the time from the corporate normal distribution
         String nameOfProd = this.product.getName();
-        double duration = 0;
-        if (nameOfProd == "corporate") {
-            duration = drawRandomNormalCorporate();
-        } else {
-            duration = drawRandomNormalConsumer();
-        }
+        double duration = drawRandomNormalConsumer();
         // if its a consumer call, draw from the normal for consumers
         // Create a new event in the eventlist
         double tme = eventlist.getTime();
@@ -121,20 +108,6 @@ public class CSACorporate extends Machine {
         }
     }
 
-    public static double drawRandomNormalCorporate() {
-        // draw a [0,1] uniform distributed number
-        double u = Math.random();
-        double mean = 216;
-        double stdev = 72;
-        // Convert it into a random number from the given normal distribution
-        double res = stdev * u + mean;
-
-        if (res < 45) { // rejection sampling
-            return drawRandomNormalCorporate();
-        } else {
-            return res;
-        }
-    }
-
 
 }
+
