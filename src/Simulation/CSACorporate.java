@@ -51,9 +51,12 @@ public class CSACorporate extends Machine {
      * @param tme  The current time
      */
     public void execute(int type, double tme) {
+
         // show arrival
+
         System.out.println("Product finished at time = " + tme);
         // Remove product from system
+
         product.stamp(tme, "Production complete", name);
         sink.giveProduct(product);
         product = null;
@@ -85,10 +88,13 @@ public class CSACorporate extends Machine {
 
     private void startProduction() {
         // if its corporate call, draw the time from the corporate normal distribution
-        //if (product.name == "corporate" draw corporate, else draw consumer
-        // Can only be implemented once the client is implemented
-
-        double duration = drawRandomNormalCorporate();
+        String nameOfProd = this.product.getName();
+        double duration = 0;
+        if (nameOfProd == "corporate") {
+            duration = drawRandomNormalCorporate();
+        } else {
+            duration = drawRandomNormalConsumer();
+        }
         // if its a consumer call, draw from the normal for consumers
         // Create a new event in the eventlist
         double tme = eventlist.getTime();

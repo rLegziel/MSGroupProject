@@ -12,6 +12,7 @@ class Product
 	private ArrayList<Double> times;
 	private ArrayList<String> events;
 	private ArrayList<String> stations;
+	private String name;
 	
 	/** 
 	*	Constructor for the product
@@ -23,6 +24,14 @@ class Product
 		times = new ArrayList<>();
 		events = new ArrayList<>();
 		stations = new ArrayList<>();
+		name = "";
+	}
+
+	public Product(String n) {
+		times = new ArrayList<>();
+		events = new ArrayList<>();
+		stations = new ArrayList<>();
+		name = n;
 	}
 	
 	
@@ -72,4 +81,9 @@ class Product
 		tmp = stations.toArray(tmp);
 		return tmp;
 	}
+
+	public String getName() {
+		return name;
+	}
+
 }
