@@ -12,19 +12,10 @@ public class SourceConsumer extends Source {
 //    private String name;
 //    /** Mean interarrival time */
 //    private double meanArrTime;
-    /**
-     * Interarrival times (in case pre-specified)
-     */
-    private double[] interarrivalTimes;
-    /**
-     * Interarrival time iterator
-     */
-    private int interArrCnt;
 
 
     public SourceConsumer(ProductAcceptor q, CEventList l, String n) {
-        super(q, l, n);
-        interarrivalTimes = getArrivalTimes();
+        super(q, l, n, true);
 
     }
 

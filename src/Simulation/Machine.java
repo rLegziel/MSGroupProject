@@ -10,17 +10,17 @@ package Simulation;
 public class Machine implements CProcess,ProductAcceptor
 {
 	/** Product that is being handled  */
-	private Product product;
+	public Product product;
 	/** Eventlist that will manage events */
-    private CEventList eventlist;
+	public CEventList eventlist;
 	/** Queue from which the machine has to take products */
-	private Queue queue;
+	public Queue queue;
 	/** Sink to dump products */
-	private ProductAcceptor sink;
+	public ProductAcceptor sink;
 	/** Status of the machine (b=busy, i=idle) */
-	private char status;
+	public char status;
 	/** Machine name */
-    private String name;
+	public String name;
 	/** Mean processing time */
 	private double meanProcTime;
 	/** Processing times (in case pre-specified) */
@@ -177,5 +177,17 @@ public class Machine implements CProcess,ProductAcceptor
 		// Convert it into a exponentially distributed random variate with mean 33
 		double res = -mean*Math.log(u);
 		return res;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public char getStatus() {
+		return status;
+	}
+
+	public void setStatus(char s) {
+		status = s;
 	}
 }

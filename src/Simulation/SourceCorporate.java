@@ -23,8 +23,7 @@ public class SourceCorporate extends Source {
 
 
     public SourceCorporate(ProductAcceptor q, CEventList l, String n) {
-        super(q, l, n);
-        interarrivalTimes = getArrivalTimes();
+        super(q, l, n, false);
     }
 
     //return the next arrival time of corporate customer call, given the previous one

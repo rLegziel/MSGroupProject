@@ -3,46 +3,13 @@ package Simulation;
 
 public class CSACorporate extends Machine {
 
-    /**
-     * Product that is being handled
-     */
-    private Product product;
-    /**
-     * Eventlist that will manage events
-     */
-    private final CEventList eventlist;
-    /**
-     * Corporate queue
-     */
-    private Queue corQueue;
-    /**
-     * consumer queue
-     */
+
     private Queue consQueue;
-    /**
-     * Sink to dump products
-     */
-    private ProductAcceptor sink;
-    /**
-     * Status of the machine (b=busy, i=idle)
-     */
-    private char status;
-    /**
-     * Machine name
-     */
-    private final String name;
-    /**
-     * Processing time iterator
-     */
-    private int procCnt;
 
 
     public CSACorporate(CEventList evList, Queue cons, Queue corporate, ProductAcceptor si, String n) {
-        eventlist = evList;
+        super(corporate, si, evList, n);
         consQueue = cons;
-        corQueue = corporate;
-        sink = si;
-        name = n;
     }
 
     /**
@@ -58,14 +25,14 @@ public class CSACorporate extends Machine {
         System.out.println("Product finished at time = " + tme);
         // Remove product from system
 
-        product.stamp(tme, "Production complete", name);
+        product.stamp(tme, "Production complete", this.getName());
         sink.giveProduct(product);
         product = null;
         // set machine status to idle
-        status = 'i';
+        this.setStatus('i');
 
 
-        boolean corAsk = corQueue.askProduct(this);
+        boolean corAsk = queue.askProduct(this);
         if (corAsk == false) {
             consQueue.askProduct(this);
         }
@@ -73,11 +40,11 @@ public class CSACorporate extends Machine {
 
     public boolean giveProduct(Product p) {
         // Only accept something if the machine is idle
-        if (status == 'i') {
+        if (this.getStatus() == 'i') {
             // accept the product
             product = p;
             // mark starting time
-            product.stamp(eventlist.getTime(), "Production started", name);
+            product.stamp(eventlist.getTime(), "Production started", this.getName());
             // start production
             startProduction();
             // Flag that the product has arrived

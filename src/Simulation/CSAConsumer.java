@@ -3,65 +3,14 @@ package Simulation;
 
 public class CSAConsumer extends Machine {
 
-    /**
-     * Product that is being handled
-     */
-    private Product product;
-    /**
-     * Eventlist that will manage events
-     */
-    private final CEventList eventlist;
-    /**
-     * consumer queue
-     */
-    private Queue consQueue;
-    /**
-     * Sink to dump products
-     */
-    private ProductAcceptor sink;
-    /**
-     * Status of the machine (b=busy, i=idle)
-     */
-    private char status;
-    /**
-     * Machine name
-     */
-    private final String name;
-    /**
-     * Processing time iterator
-     */
-    private int procCnt;
+
 
 
     public CSAConsumer(CEventList evList, Queue cons, ProductAcceptor si, String n) {
-        eventlist = evList;
-        consQueue = cons;
-        sink = si;
-        name = n;
+        super(cons, si, evList, n);
     }
 
-    /**
-     * Method to have this object execute an event
-     *
-     * @param type The type of the event that has to be executed
-     * @param tme  The current time
-     */
-    public void execute(int type, double tme) {
 
-
-        // show arrival
-        System.out.println("Product finished at time = " + tme);
-        // Remove product from system
-
-        product.stamp(tme, "Production complete", name);
-        sink.giveProduct(product);
-        product = null;
-        // set machine status to idle
-        status = 'i';
-
-        consQueue.askProduct(this);
-
-    }
 
     public boolean giveProduct(Product p) {
         // Only accept something if the machine is idle

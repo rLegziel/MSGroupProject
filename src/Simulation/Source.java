@@ -41,6 +41,21 @@ public class Source implements CProcess
 		list.add(this,0,drawRandomExponential(meanArrTime)); //target,type,time
 	}
 
+	public Source(ProductAcceptor q, CEventList l, String n, boolean consumer) {
+		list = l;
+		queue = q;
+		name = n;
+		meanArrTime = 0;
+		if (consumer == true) {
+			interarrivalTimes = SourceConsumer.getArrivalTimes();
+		} else {
+			interarrivalTimes = SourceCorporate.getArrivalTimes();
+		}
+
+		// put first event in list for initialization
+		list.add(this, 0, interarrivalTimes[0]); //target,type,time
+	}
+
 	/**
 	*	Constructor, creates objects
 	*        Interarrival times are exponentially distributed with specified mean
@@ -206,6 +221,10 @@ public class Source implements CProcess
 			}
 		}
 		return arrivalTimes;
+	}
+
+	public void setIATimes(double[] interA) {
+		interarrivalTimes = interA;
 	}
 	
 }
