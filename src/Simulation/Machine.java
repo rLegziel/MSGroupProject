@@ -12,7 +12,7 @@ public class Machine implements CProcess,ProductAcceptor
 	/** Product that is being handled  */
 	private Product product;
 	/** Eventlist that will manage events */
-	private final CEventList eventlist;
+    private CEventList eventlist;
 	/** Queue from which the machine has to take products */
 	private Queue queue;
 	/** Sink to dump products */
@@ -20,7 +20,7 @@ public class Machine implements CProcess,ProductAcceptor
 	/** Status of the machine (b=busy, i=idle) */
 	private char status;
 	/** Machine name */
-	private final String name;
+    private String name;
 	/** Mean processing time */
 	private double meanProcTime;
 	/** Processing times (in case pre-specified) */

@@ -48,8 +48,8 @@ public class CSAConsumer extends Machine {
      */
     public void execute(int type, double tme) {
 
-        // show arrival
 
+        // show arrival
         System.out.println("Product finished at time = " + tme);
         // Remove product from system
 

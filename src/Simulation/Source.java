@@ -118,40 +118,7 @@ public class Source implements CProcess
 		return res;
 	}
 	
-	public static double drawRandomNormalConsumer()
-	{
-		// draw a [0,1] uniform distributed number
-		double u = Math.random();
-		double mean = 72;
-		double stdev = 35;
 
-		// Convert it into a random number from the given normal distribution
-		double res = stdev*u+ mean;
-
-		if (res < 25){ // rejection sampling
-			return drawRandomNormalConsumer();
-		}
-		else{
-		return res;
-		}
-	}
-
-	public static double drawRandomNormalCorporate()
-	{
-		// draw a [0,1] uniform distributed number
-		double u = Math.random();
-		double mean = 216;
-		double stdev = 72;
-		// Convert it into a random number from the given normal distribution
-		double res = stdev*u+ mean;
-
-		if (res< 45){ // rejection sampling
-			return drawRandomNormalCorporate();
-		}
-        else{
-		return res;
-		}
-	}
 	// Compute arrival rate of consumer call based on sinusoid
 	// hour needs to be in a 24hr time, so 3:30PM = 15:30
 	public static double getArrivalRateConsumer(double time){
@@ -203,24 +170,24 @@ public class Source implements CProcess
 		return t;
 	}
 
-	//generate an arraylist containing all calling times of consumers over 24h
-	public static ArrayList<Double> getArrivalTimesConsumers(){
-		ArrayList<Double> arrivalTimes = new ArrayList<>();
-		arrivalTimes.add(getNextTimeConsumer(0)); //get first arrival time
-		double currentT = arrivalTimes.get(0);
-		int i=1;
-		while(currentT < 24){
-			arrivalTimes.add(getNextTimeConsumer(currentT));
-			currentT = arrivalTimes.get(i);
-			i++;
-		}
-		for(int j=0; j<arrivalTimes.size(); j++) {
-			if(arrivalTimes.get(j) > 24) {
-				arrivalTimes.remove(j);
-			}
-		}
-		return arrivalTimes;
-	}
+//	//generate an arraylist containing all calling times of consumers over 24h
+//	public static ArrayList<Double> getArrivalTimesConsumers(){
+//		ArrayList<Double> arrivalTimes = new ArrayList<>();
+//		arrivalTimes.add(getNextTimeConsumer(0)); //get first arrival time
+//		double currentT = arrivalTimes.get(0);
+//		int i=1;
+//		while(currentT < 24){
+//			arrivalTimes.add(getNextTimeConsumer(currentT));
+//			currentT = arrivalTimes.get(i);
+//			i++;
+//		}
+//		for(int j=0; j<arrivalTimes.size(); j++) {
+//			if(arrivalTimes.get(j) > 24) {
+//				arrivalTimes.remove(j);
+//			}
+//		}
+//		return arrivalTimes;
+//	}
 
 	//generate an arraylist containing all calling times of corporate customers over 24h
 	public static ArrayList<Double> getArrivalTimesCorporate(){
