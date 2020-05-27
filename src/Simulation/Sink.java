@@ -83,8 +83,7 @@ public class Sink implements ProductAcceptor
 		return tmp;
 	}
 
-	public String[] getNames()
-	{
+	public String[] getNames() {
 		String[] tmp = new String[names.size()];
 		tmp = names.toArray(tmp);
 		return tmp;

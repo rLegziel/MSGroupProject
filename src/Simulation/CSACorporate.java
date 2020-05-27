@@ -30,8 +30,6 @@ public class CSACorporate extends Machine {
         product = null;
         // set machine status to idle
         this.setStatus('i');
-
-
         boolean corAsk = queue.askProduct(this);
         if (corAsk == false) {
             consQueue.askProduct(this);

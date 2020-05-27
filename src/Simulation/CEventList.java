@@ -92,23 +92,23 @@ public class CEventList implements CProcess
 		boolean firstChange = false;
 		// stop criterion
 		boolean firstStop = false;
+		double changeTime = 0;
+
 		while((events.size()>0)&&(!stopFlag))
 		{
 			double simTime = getTime();
 			double nextTime = events.get(1).getExecutionTime();
-			double changeTime = 0;
-			if ((simTime <= 21600)&&(nextTime>=21600)) {
-				// call the method to change to the first method
-			}
-			else if((simTime <=changeTime + 28800)&&(nextTime>changeTime + 28800)){
-				// call method to change the shifts every eight hours
-				if (changeTime != 0){
-					// run the method to change shifts
-				}
+			if ((simTime <= 21600) && (nextTime >= 21600) && (firstStop == false)) {
+				//roaster change
 				changeTime = simTime;
+				firstStop = true;
+			} else if ((simTime <= changeTime + 28800) && (nextTime > changeTime + 28800)) {
+				// call method to change the shifts every eight hours
+				changeTime = simTime;
+				System.out.println("we are eight hours later!");
+				System.out.println(simTime);
+				System.out.println(nextTime);
 			}
-
-
 			// Make the similation time equal to the execution time of the first event in the list that has to be processed
 			currentTime=events.get(0).getExecutionTime();
 			// Let the element be processed
