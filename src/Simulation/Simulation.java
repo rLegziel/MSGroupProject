@@ -32,7 +32,6 @@ public class Simulation {
     public static CSAConsumer  consAgent5;
     public static CSAConsumer  consAgent6;
 
-    public ArrayList<CsaAgent> agents = new ArrayList<>();
 
     public Simulation(){
         this.list = new CEventList();
@@ -127,6 +126,8 @@ public class Simulation {
             consAgent4.setActive(false);
             consAgent5.setActive(false);
             consAgent6.setActive(false);
+
+
         }
     }
 
