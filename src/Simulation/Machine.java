@@ -27,7 +27,7 @@ public class Machine implements CProcess,ProductAcceptor
 	private double[] processingTimes;
 	/** Processing time iterator */
 	private int procCnt;
-	public boolean active;
+    public boolean active = true;
 	
 
 	/**
@@ -122,7 +122,7 @@ public class Machine implements CProcess,ProductAcceptor
 	@Override
 	public boolean giveProduct(Product p)
 	{
-		if (active == true) {
+        if (active) {
 			// Only accept something if the machine is idle
 			if (status == 'i') {
 				// accept the product

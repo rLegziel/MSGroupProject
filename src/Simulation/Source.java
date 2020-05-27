@@ -48,24 +48,14 @@ public class Source implements CProcess
 		meanArrTime = 0;
 		if (consumer == true) {
 			interarrivalTimes = SourceConsumer.getArrivalTimes();
-			System.out.println("nb of consumer "+interarrivalTimes.length);
-			for(int i=0; i<1; i++){
-				System.out.println("first "+interarrivalTimes[i]);
-			}
-			System.out.println("last "+interarrivalTimes[interarrivalTimes.length-1]);
-
+            System.out.println(interarrivalTimes.length);
 		} else {
 			interarrivalTimes = SourceCorporate.getArrivalTimes();
-			System.out.println("nb of customer "+interarrivalTimes.length);
-			for(int i=0; i<1; i++){
-				System.out.println("first "+interarrivalTimes[i]);
-			}
-			System.out.println("last "+interarrivalTimes[interarrivalTimes.length-1]);
+            System.out.println(interarrivalTimes.length);
 		}
 		for(int i=0; i<interarrivalTimes.length; i++){ //target ?? type 0 -> arrival
 			list.add(this,0,interarrivalTimes[i]);
 		}
-
 		// put first event in list for initialization
 		//list.add(this, 0, interarrivalTimes[0]); //target,type,time
 	}
@@ -117,7 +107,18 @@ public class Source implements CProcess
 		Product p = new Product();
 		p.stamp(tme,"Creation",name);
 		queue.giveProduct(p);
+        // generate duration
 
+
+        interArrCnt++;
+//			if(interarrivalTimes.length>interArrCnt)
+//			{
+//				list.add(this,0,tme+interarrivalTimes[interArrCnt]); //target,type,time
+//			}
+//			else
+//			{
+//				list.stop();
+//			}
 
 	}
 	

@@ -37,19 +37,22 @@ public class CSACorporate extends Machine {
     }
 
     public boolean giveProduct(Product p) {
-        // Only accept something if the machine is idle
-        if (this.getStatus() == 'i') {
-            // accept the product
-            product = p;
-            // mark starting time
-            product.stamp(eventlist.getTime(), "Production started", this.getName());
-            // start production
-            startProduction();
-            // Flag that the product has arrived
-            return true;
+        if (active) {
+            // Only accept something if the machine is idle
+            if (this.getStatus() == 'i') {
+                // accept the product
+                product = p;
+                // mark starting time
+                product.stamp(eventlist.getTime(), "Production started", this.getName());
+                // start production
+                startProduction();
+                // Flag that the product has arrived
+                return true;
+            }
+            // Flag that the product has been rejected
+            else return false;
         }
-        // Flag that the product has been rejected
-        else return false;
+        return false;
     }
 
     private void startProduction() {
