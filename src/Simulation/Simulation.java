@@ -53,7 +53,7 @@ public class Simulation {
 //	// start the eventlist
         //l.start(24*3600); // 2000 is maximum time
 
-        l2.start(2000);
+        l2.start(24*3600);
         System.out.println(si.getNumber());
 
         String[] ev = si.getEvents();
@@ -70,7 +70,7 @@ public class Simulation {
                 if (i+2 < tim.length) {
                     consumers_times.add(tim[i + 2] - tim[i]);
                 }
-            } else {
+            } else if (stats[i].contains("Source corporate")){
                 if (i+2 < tim.length) {
                     corp_times.add(tim[i + 2] - tim[i]);
                 }
