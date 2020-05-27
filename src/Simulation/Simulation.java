@@ -6,8 +6,11 @@
 
 package Simulation;
 
-import java.sql.SQLOutput;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.File;
 
 public class Simulation {
 
@@ -21,8 +24,10 @@ public class Simulation {
         /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
+        ArrayList<Double> consumers_times = new ArrayList<Double>();
+        ArrayList<Double> corp_times = new ArrayList<Double>();
 
 //    	// Create an eventlist
 	    //CEventList l = new CEventList();
@@ -48,7 +53,7 @@ public class Simulation {
 //	// start the eventlist
         //l.start(24*3600); // 2000 is maximum time
 
-        l2.start(100);
+        l2.start(2000);
         System.out.println(si.getNumber());
 
         String[] ev = si.getEvents();
@@ -60,19 +65,49 @@ public class Simulation {
             System.out.println(ev[i]);
             System.out.println(stats[i]);
             System.out.println(tim[i]);
-        }
 
-        System.out.println(ev.length/3);
-
+            if (stats[i].contains("Source consumer")){
+                if (i+2 < tim.length) {
+                    consumers_times.add(tim[i + 2] - tim[i]);
+                }
+            } else {
+                if (i+2 < tim.length) {
+                    corp_times.add(tim[i + 2] - tim[i]);
+                }
+            }
 
     }
+        File cons_file = new File("consumers.csv");
+        FileWriter cons_fw = new FileWriter(cons_file);
+        BufferedWriter cons_bw = new BufferedWriter(cons_fw);
 
+        for(int i=0;i<consumers_times.size();i++)
+        {
+            cons_bw.write(String.valueOf(consumers_times.get(i)));
+            cons_bw.newLine();
+        }
 
+        cons_bw.close();
+        cons_fw.close();
+
+        File corp_file = new File("corporate.csv");
+        FileWriter corp_fw = new FileWriter(corp_file);
+        BufferedWriter corp_bw = new BufferedWriter(corp_fw);
+
+        for(int i=0;i<corp_times.size();i++)
+        {
+            corp_bw.write(String.valueOf(corp_times.get(i)));
+            corp_bw.newLine();
+        }
+
+        corp_bw.close();
+        corp_fw.close();
 
 
 
 }
 
 
+    }
     
 
