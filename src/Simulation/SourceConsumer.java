@@ -20,29 +20,29 @@ public class SourceConsumer extends Source {
     }
 
 
-    @Override
-    public void execute(int type, double tme) {
-        // show arrival
-        System.out.println("Arrival at time = " + tme);
-        // give arrived product to queue
-        Product p = new Product("consumer client");
-        p.stamp(tme, "Creation", name);
-        queue.giveProduct(p);
-        // generate duration
-        if (meanArrTime > 0) {
-            double duration = drawRandomExponential(meanArrTime);
-            // Create a new event in the eventlist
-            list.add(this, 0, tme + duration); //target,type,time
-        } else {
-            interArrCnt++;
-            if (interarrivalTimes.length > interArrCnt) {
-                list.add(this, 0, tme + interarrivalTimes[interArrCnt]); //target,type,time
-            } else {
-                list.stop();
-            }
-        }
-
-    }
+//    @Override
+//    public void execute(int type, double tme) {
+//        // show arrival
+//        System.out.println("Arrival at time = " + tme);
+//        // give arrived product to queue
+//        Product p = new Product("consumer client");
+//        p.stamp(tme, "Creation", name);
+//        queue.giveProduct(p);
+//        // generate duration
+//        if (meanArrTime > 0) {
+//            double duration = drawRandomExponential(meanArrTime);
+//            // Create a new event in the eventlist
+//            list.add(this, 0, tme + duration); //target,type,time
+//        } else {
+//            interArrCnt++;
+//            if (interarrivalTimes.length > interArrCnt) {
+//                list.add(this, 0, tme + interarrivalTimes[interArrCnt]); //target,type,time
+//            } else {
+//                list.stop();
+//            }
+//        }
+//
+//    }
 
 
     // Compute arrival rate of consumer call based on sinusoid
