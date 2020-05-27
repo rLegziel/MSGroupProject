@@ -62,12 +62,12 @@ public class SourceCorporate extends Source {
     public static double getArrivalRateCorporate(double time) {
         double rate = 0;
 
-        if (time >= 8 && time < 18) { //rate between 8am-6pm
+        if (time >= 8*3600 && time < 18*3600) { //rate between 8am-6pm
             rate = 1;
         } else { //rate between 6pm-8am  if((time >= 0 && time < 8) || (time >= 18 && time < 24))
             rate = 0.2;
         }
-        return rate * 60;//get rate per hour
+        return rate/(60) ;//get rate per second
     }
 
     public static double[] getArrivalTimes() {
@@ -75,13 +75,13 @@ public class SourceCorporate extends Source {
         arrivalTimes.add(getNextTimeCorporate(0)); //get first arrival time
         double currentT = arrivalTimes.get(0);
         int i = 1;
-        while (currentT < 24) {
+        while (currentT < 24*3600) {
             arrivalTimes.add(getNextTimeCorporate(currentT));
             currentT = arrivalTimes.get(i);
             i++;
         }
         for (int j = 0; j < arrivalTimes.size(); j++) {
-            if (arrivalTimes.get(j) > 24) {
+            if (arrivalTimes.get(j) > 24*3600) {
                 arrivalTimes.remove(j);
             }
         }

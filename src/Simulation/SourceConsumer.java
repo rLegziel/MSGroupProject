@@ -45,17 +45,17 @@ public class SourceConsumer extends Source {
 //    }
 
 
-    // Compute arrival rate of consumer call based on sinusoid
-    // hour needs to be in a 24hr time, so 3:30PM = 15:30
+    // Compute arrival rate per second of consumer call based on sinusoid
+    // hour needs to be in seconds
     public static double getArrivalRateConsumer(double time) {
-        double rate = 1.8 * Math.sin((Math.PI / 12) * (time - 9)) + 2;
-        return 60 * rate;//get rate per hour
+        double rate = 1.8 * Math.sin((Math.PI / 12*3600) * (time - 9*3600)) + 2;
+        return rate/(60);//get rate per second
     }
 
 
     //return the next arrival time of consumer call, given the previous one
     public static double getNextTimeConsumer(double t_1) {
-        double maxRate = 3.8 * 60; //highest arrival rate, reached at 3pm
+        double maxRate = 3.8/60; //highest arrival rate, reached at 3pm = 54,000s
         double t = t_1;
         double u1 = 1;
         double u2 = 1;
@@ -75,19 +75,19 @@ public class SourceConsumer extends Source {
         return t;
     }
 
-    //generate an arraylist containing all calling times of consumers over 24h
+    //generate an array containing all calling times of consumers over 24h
     public static double[] getArrivalTimes() {
         ArrayList<Double> arrivalTimes = new ArrayList<>();
         arrivalTimes.add(getNextTimeConsumer(0)); //get first arrival time
         double currentT = arrivalTimes.get(0);
         int i = 1;
-        while (currentT < 24) {
+        while (currentT < 24*3600) {
             arrivalTimes.add(getNextTimeConsumer(currentT));
             currentT = arrivalTimes.get(i);
             i++;
         }
         for (int j = 0; j < arrivalTimes.size(); j++) {
-            if (arrivalTimes.get(j) > 24) {
+            if (arrivalTimes.get(j) > 24*3600) {
                 arrivalTimes.remove(j);
             }
         }

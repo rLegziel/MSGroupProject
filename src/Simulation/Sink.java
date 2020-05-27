@@ -88,4 +88,7 @@ public class Sink implements ProductAcceptor
 		tmp = stations.toArray(tmp);
 		return tmp;
 	}
+	public int getNumber(){
+		return number;
+	}
 }
