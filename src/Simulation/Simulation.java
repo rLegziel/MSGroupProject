@@ -24,7 +24,7 @@ public class Simulation {
 
 
 //    	// Create an eventlist
-	    CEventList l = new CEventList();
+	    //CEventList l = new CEventList();
         CEventList l2 = new CEventList();
 
 	// A queue for the machine
@@ -33,7 +33,7 @@ public class Simulation {
         // A source
         SourceConsumer sourcCon = new SourceConsumer(consumer, l2, "Source consumer");
         SourceCorporate sourcCorporate = new SourceCorporate(corp, l2, "Source corporate");
-//	// A sink
+
         Sink si = new Sink("Sink 1");
 //	// A machine
         CSACorporate corpAgent = new CSACorporate(l2, corp, consumer, si, "Corp agent");
@@ -45,8 +45,8 @@ public class Simulation {
         CSAConsumer consAgent2 = new CSAConsumer(l2, consumer, si, "consumer agent");
         CSAConsumer consAgent3 = new CSAConsumer(l2, consumer, si, "consumer agent");
 //	// start the eventlist
-        l.start(24*3600); // 2000 is maximum time
-        System.out.println(si.getNumber());
+        //l.start(24*3600); // 2000 is maximum time
+
         l2.start(24*3600);
         System.out.println(si.getNumber());
 
@@ -59,6 +59,9 @@ public class Simulation {
             System.out.println(ev[i]);
             System.out.println(stats[i]);
             System.out.println(tim[i]);
+        }
+
+
 
     }
 
@@ -69,6 +72,5 @@ public class Simulation {
 }
 
 
-    }
     
 

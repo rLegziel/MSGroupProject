@@ -27,6 +27,7 @@ public class CEventList implements CProcess
 		currentTime = 0;
 		stopFlag = false;
 		events = new ArrayList<>();
+
 	}
 	
 	/**
@@ -86,6 +87,7 @@ public class CEventList implements CProcess
 	*/
 	public void start(double mx)
 	{
+
 		add(this,-1,mx);
 		// stop criterion
 		while((events.size()>0)&&(!stopFlag))

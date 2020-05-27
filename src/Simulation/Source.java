@@ -48,12 +48,16 @@ public class Source implements CProcess
 		meanArrTime = 0;
 		if (consumer == true) {
 			interarrivalTimes = SourceConsumer.getArrivalTimes();
+
 		} else {
 			interarrivalTimes = SourceCorporate.getArrivalTimes();
-		}
 
+		}
+		for(int i=0; i<interarrivalTimes.length; i++){ //target ?? type 0 -> arrival
+			list.add(this,0,interarrivalTimes[i]);
+		}
 		// put first event in list for initialization
-		list.add(this, 0, interarrivalTimes[0]); //target,type,time
+		//list.add(this, 0, interarrivalTimes[0]); //target,type,time
 	}
 
 	/**
@@ -104,14 +108,8 @@ public class Source implements CProcess
 		p.stamp(tme,"Creation",name);
 		queue.giveProduct(p);
 		// generate duration
-		if(meanArrTime>0)
-		{
-			double duration = drawRandomExponential(meanArrTime);
-			// Create a new event in the eventlist
-			list.add(this,0,tme+duration); //target,type,time
-		}
-		else
-		{
+
+
 			interArrCnt++;
 			if(interarrivalTimes.length>interArrCnt)
 			{
@@ -121,7 +119,7 @@ public class Source implements CProcess
 			{
 				list.stop();
 			}
-		}
+
 	}
 	
 	public static double drawRandomExponential(double mean)
@@ -203,7 +201,7 @@ public class Source implements CProcess
 //		}
 //		return arrivalTimes;
 //	}
-
+/*
 	//generate an arraylist containing all calling times of corporate customers over 24h
 	public static ArrayList<Double> getArrivalTimesCorporate(){
 		ArrayList<Double> arrivalTimes = new ArrayList<>();
@@ -222,9 +220,11 @@ public class Source implements CProcess
 		}
 		return arrivalTimes;
 	}
-
+*/
 	public void setIATimes(double[] interA) {
 		interarrivalTimes = interA;
 	}
-	
+	public double getNbArrivals(){
+		return interarrivalTimes.length;
+	}
 }
