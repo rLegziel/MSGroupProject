@@ -40,6 +40,7 @@ class Product
 		times.add(time);
 		events.add(event);
 		stations.add(station);
+
 	}
 	
 	public ArrayList<Double> getTimes()

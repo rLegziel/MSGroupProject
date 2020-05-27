@@ -15,6 +15,7 @@ public class Sink implements ProductAcceptor
 	private ArrayList<Double> times;
 	private ArrayList<String> events;
 	private ArrayList<String> stations;
+	private ArrayList<String> names;
 	/** Counter to number products */
 	private int number;
 	/** Name of the sink */
@@ -79,6 +80,13 @@ public class Sink implements ProductAcceptor
 	{
 		String[] tmp = new String[events.size()];
 		tmp = events.toArray(tmp);
+		return tmp;
+	}
+
+	public String[] getNames()
+	{
+		String[] tmp = new String[names.size()];
+		tmp = names.toArray(tmp);
 		return tmp;
 	}
 
