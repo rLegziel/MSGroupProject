@@ -87,7 +87,7 @@ public class CEventList implements CProcess
 	*/
 	public void start(double mx)
 	{
-
+		System.out.println(events.size());
 		add(this,-1,mx);
 		// stop criterion
 		while((events.size()>0)&&(!stopFlag))

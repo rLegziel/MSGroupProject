@@ -6,6 +6,7 @@
 
 package Simulation;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 public class Simulation {
@@ -47,7 +48,7 @@ public class Simulation {
 //	// start the eventlist
         //l.start(24*3600); // 2000 is maximum time
 
-        l2.start(24*3600);
+        l2.start(100);
         System.out.println(si.getNumber());
 
         String[] ev = si.getEvents();
@@ -61,6 +62,7 @@ public class Simulation {
             System.out.println(tim[i]);
         }
 
+        System.out.println(ev.length/3);
 
 
     }

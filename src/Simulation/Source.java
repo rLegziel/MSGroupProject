@@ -48,10 +48,10 @@ public class Source implements CProcess
 		meanArrTime = 0;
 		if (consumer == true) {
 			interarrivalTimes = SourceConsumer.getArrivalTimes();
-
+			System.out.println(interarrivalTimes.length);
 		} else {
 			interarrivalTimes = SourceCorporate.getArrivalTimes();
-
+			System.out.println(interarrivalTimes.length);
 		}
 		for(int i=0; i<interarrivalTimes.length; i++){ //target ?? type 0 -> arrival
 			list.add(this,0,interarrivalTimes[i]);
