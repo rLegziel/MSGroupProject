@@ -27,6 +27,7 @@ public class Machine implements CProcess,ProductAcceptor
 	private double[] processingTimes;
 	/** Processing time iterator */
 	private int procCnt;
+	public boolean active;
 	
 
 	/**
@@ -118,23 +119,26 @@ public class Machine implements CProcess,ProductAcceptor
 	*	@param p	The product that is offered
 	*	@return	true if the product is accepted and started, false in all other cases
 	*/
-        @Override
+	@Override
 	public boolean giveProduct(Product p)
 	{
-		// Only accept something if the machine is idle
-		if(status=='i')
-		{
-			// accept the product
-			product=p;
-			// mark starting time
-			product.stamp(eventlist.getTime(),"Production started",name);
-			// start production
-			startProduction();
-			// Flag that the product has arrived
-			return true;
+		if (active == true) {
+			// Only accept something if the machine is idle
+			if (status == 'i') {
+				// accept the product
+				product = p;
+				// mark starting time
+				product.stamp(eventlist.getTime(), "Production started", name);
+				// start production
+				startProduction();
+				// Flag that the product has arrived
+				return true;
+			}
+
+			// Flag that the product has been rejected
+			else return false;
 		}
-		// Flag that the product has been rejected
-		else return false;
+		return false;
 	}
 	
 	/**
@@ -189,5 +193,9 @@ public class Machine implements CProcess,ProductAcceptor
 
 	public void setStatus(char s) {
 		status = s;
+	}
+
+	public void setActive(boolean active){
+		this.active = active;
 	}
 }
