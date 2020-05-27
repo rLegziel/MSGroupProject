@@ -12,17 +12,17 @@ import java.util.ArrayList;
 public class Source implements CProcess
 {
 	/** Eventlist that will be requested to construct events */
-	private CEventList list;
+	public CEventList list;
 	/** Queue that buffers products for the machine */
-	private ProductAcceptor queue;
+	public ProductAcceptor queue;
 	/** Name of the source */
-	private String name;
+	public String name;
 	/** Mean interarrival time */
-	private double meanArrTime;
+	public double meanArrTime;
 	/** Interarrival times (in case pre-specified) */
-	private double[] interarrivalTimes;
+	public double[] interarrivalTimes;
 	/** Interarrival time iterator */
-	private int interArrCnt;
+	public int interArrCnt;
 
 	/**
 	*	Constructor, creates objects

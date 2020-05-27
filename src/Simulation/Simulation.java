@@ -23,34 +23,37 @@ public class Simulation {
     public static void main(String[] args) {
 //    	// Create an eventlist
 	CEventList l = new CEventList();
+        CEventList l2 = new CEventList();
+
 	// A queue for the machine
-	Queue q = new Queue();
-	// A source
-//	Source s = new Source(q,l,"Source 1");
+        Queue consumer = new Queue();
+        Queue corp = new Queue();
+        // A source
+        SourceConsumer sourcCon = new SourceConsumer(consumer, l, "Source consumer");
+        SourceCorporate sourcCorporate = new SourceCorporate(corp, l2, "Source corporate");
 //	// A sink
-//	Sink si = new Sink("Sink 1");
+        Sink si = new Sink("Sink 1");
 //	// A machine
-//	Machine m = new Machine(q,si,l,"Machine 1");
+        CSACorporate corpAgent = new CSACorporate(l2, corp, consumer, si, "Corp agent");
+        CSACorporate corp2Agent = new CSACorporate(l2, corp, consumer, si, "Corp2 agent");
+        CSACorporate corp3Agent = new CSACorporate(l2, corp, consumer, si, "Corp3 agent");
+        CSAConsumer consAgent = new CSAConsumer(l2, consumer, si, "consumer agent");
 //	// start the eventlist
-//	l.start(2000); // 2000 is maximum time
+        l.start(2000); // 2000 is maximum time
+        l2.start(2000);
 
-    Source s2 = new Source(q,l,"source 1");
+        String[] ev = si.getEvents();
+        String[] stats = si.getStations();
+        double[] tim = si.getTimes();
 
-    ArrayList<Double> arrTCons = s2.getArrivalTimesConsumers();
-    ArrayList<Double> arrTCorp = s2.getArrivalTimesCorporate();
-    System.out.println("consumer times");
-    for(int i=0; i<arrTCons.size(); i++) {
-        System.out.println(arrTCons.get(i));
+
+        for (int i = 0; i < ev.length; i++) {
+            System.out.println(ev[i]);
+            System.out.println(stats[i]);
+            System.out.println(tim[i]);
+
     }
-    System.out.println("-----");
-    System.out.println("corporate times");
-    for(int i=0; i<arrTCorp.size(); i++) {
-        System.out.println(arrTCorp.get(i));
-    }
 
-    System.out.println("number of arrivals of consumers "+arrTCons.size());
-    System.out.println("-----");
-    System.out.println("number of arrivales of corporate custommers "+arrTCorp.size());
 }
 
 
