@@ -99,7 +99,7 @@ public class Simulation {
     public static void main(String[] args) throws IOException {
 
         Simulation sim  = new Simulation();
-        sim.list.start(24*3600);
+        sim.list.start(24*3600+1500);
 
 
         String[] ev = sim.sink.getEvents();

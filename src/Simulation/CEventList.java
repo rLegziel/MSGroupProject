@@ -87,6 +87,7 @@ public class CEventList implements CProcess
 	*	It will run until there are no longer events in the list or that a maximum time has elapsed
 	*	@param mx De maximum time of the simulation
 	*/
+
 	public void start(double mx)
 	{
 		System.out.println("events size "+events.size());
@@ -97,16 +98,20 @@ public class CEventList implements CProcess
 		boolean firstStop = false;
 		double changeTime = 0;
         int counter = 0;
+        Simulation.rosterChange(2);
 		while((events.size()>0)&&(!stopFlag))
 		{
 			double simTime = getTime();
-			double nextTime = events.get(1).getExecutionTime();
+			double nextTime = 86000;
+			if(events.size() > 1) {
+				nextTime = events.get(1).getExecutionTime();
+			}
+
 			if ((simTime <= 21600) && (nextTime >= 21600) && (firstStop == false)) {
 				//roaster change
                 Simulation.rosterChange(counter);
 				changeTime = simTime;
 				firstStop = true;
-                counter++;
 			} else if ((simTime <= changeTime + 28800) && (nextTime > changeTime + 28800)) {
 				// call method to change the shifts every eight hours
                 Simulation.rosterChange(counter);
