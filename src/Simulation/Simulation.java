@@ -193,27 +193,26 @@ public class Simulation {
 
             consAgent1 = new CSAConsumer(list, consumer, sink, " shift 2 cons agent 1");
             consAgent2 = new CSAConsumer(list, consumer, sink, " shift 2 cons agent 2");
-            consAgent3 = new CSAConsumer(list, consumer, sink, " shift 2 cons agent 3");
 
         }else if(i==1){
             resetAgents();
             corpAgent1 = new CSACorporate(list, consumer, corp, sink, "shift 3 corp agent 1");
             corpAgent2 = new CSACorporate(list, consumer, corp, sink, "shift 3 corp agent 2");
-            corpAgent3 = new CSACorporate(list, consumer, corp, sink, "shift 3 corp agent 3");
+
 
             consAgent1 = new CSAConsumer(list, consumer, sink, " shift 3 cons agent 1");
             consAgent2 = new CSAConsumer(list, consumer, sink, " shift 3 cons agent 2");
-            consAgent3 = new CSAConsumer(list, consumer, sink, " shift 3 cons agent 3");
 
         }else if(i==2){
             resetAgents();
             corpAgent1 = new CSACorporate(list, consumer, corp, sink, "shift 4 corp agent 1");
             corpAgent2 = new CSACorporate(list, consumer, corp, sink, "shift 4 corp agent 2");
-            corpAgent3 = new CSACorporate(list, consumer, corp, sink, "shift 4 corp agent 3");
 
             consAgent1 = new CSAConsumer(list, consumer, sink, " shift 4 cons agent 1");
             consAgent2 = new CSAConsumer(list, consumer, sink, " shift 4 cons agent 2");
-            consAgent3 = new CSAConsumer(list, consumer, sink, " shift 4 cons agent 3");
+
+
+
 
 
 
