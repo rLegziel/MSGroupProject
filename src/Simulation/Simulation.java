@@ -6,6 +6,10 @@
 
 package Simulation;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 
@@ -32,8 +36,12 @@ public class Simulation {
     public static CSAConsumer consAgent5;
     public static CSAConsumer consAgent6;
 
+    public static ArrayList<Double> consumers_times = new ArrayList<Double>();
+    public static ArrayList<Double> corp_times = new ArrayList<Double>();
 
     public Simulation(){
+
+
         this.list = new CEventList();
         this.consumer = new Queue();
         this.corp = new Queue();
@@ -88,7 +96,7 @@ public class Simulation {
         /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         Simulation sim  = new Simulation();
         sim.list.start(24*3600);
@@ -103,12 +111,46 @@ public class Simulation {
             System.out.println(ev[i]);
             System.out.println(stats[i]);
             System.out.println(tim[i]);
+            if (stats[i].contains("Source consumer")){
+                if (i+2 < tim.length) {
+                    consumers_times.add(tim[i + 2] - tim[i]);
+                }
+            } else if (stats[i].contains("Source corporate")){
+                if (i+2 < tim.length) {
+                    corp_times.add(tim[i + 2] - tim[i]);
+                }
+            }
+
+
+        }
+        System.out.println(ev.length/3);
+        File cons_file = new File("consumers.csv");
+        FileWriter cons_fw = new FileWriter(cons_file);
+        BufferedWriter cons_bw = new BufferedWriter(cons_fw);
+
+        for(int i=0;i<consumers_times.size();i++)
+        {
+            cons_bw.write(String.valueOf(consumers_times.get(i)/60));
+            cons_bw.newLine();
         }
 
-        System.out.println(ev.length/3);
+        cons_bw.close();
+        cons_fw.close();
 
+        File corp_file = new File("corporate.csv");
+        FileWriter corp_fw = new FileWriter(corp_file);
+        BufferedWriter corp_bw = new BufferedWriter(corp_fw);
 
-    }
+        for(int i=0;i<corp_times.size();i++)
+        {
+            corp_bw.write(String.valueOf(corp_times.get(i)/60));
+            corp_bw.newLine();
+        }
+
+        corp_bw.close();
+        corp_fw.close();
+        }
+
 
     public static void rosterChange(int i){
         if(i==0){
