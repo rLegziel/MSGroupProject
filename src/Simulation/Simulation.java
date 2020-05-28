@@ -37,7 +37,9 @@ public class Simulation {
     public static CSAConsumer consAgent6;
 
     public static ArrayList<Double> consumers_times = new ArrayList<Double>();
+    public static ArrayList<Double> consumers_times_arr = new ArrayList<Double>();
     public static ArrayList<Double> corp_times = new ArrayList<Double>();
+    public static ArrayList<Double> corp_times_arr = new ArrayList<Double>();
 
     public Simulation(){
 
@@ -114,10 +116,12 @@ public class Simulation {
             if (stats[i].contains("Source consumer")){
                 if (i+2 < tim.length) {
                     consumers_times.add(tim[i + 2] - tim[i]);
+                    consumers_times_arr.add(tim[i]);
                 }
             } else if (stats[i].contains("Source corporate")){
                 if (i+2 < tim.length) {
                     corp_times.add(tim[i + 2] - tim[i]);
+                    corp_times_arr.add(tim[i]);
                 }
             }
 
@@ -149,7 +153,35 @@ public class Simulation {
 
         corp_bw.close();
         corp_fw.close();
+
+
+        File cons_file_arr = new File("consumers_arr.csv");
+        FileWriter cons_fw_arr = new FileWriter(cons_file_arr);
+        BufferedWriter cons_bw_arr = new BufferedWriter(cons_fw_arr);
+
+        for(int i=0;i<consumers_times_arr.size();i++)
+        {
+            cons_bw_arr.write(String.valueOf(consumers_times_arr.get(i)/60));
+            cons_bw_arr.newLine();
         }
+
+        cons_bw_arr.close();
+        cons_fw_arr.close();
+
+        File corp_file_arr = new File("corporate_arr.csv");
+        FileWriter corp_fw_arr = new FileWriter(corp_file_arr);
+        BufferedWriter corp_bw_arr = new BufferedWriter(corp_fw_arr);
+
+        for(int i=0;i<corp_times_arr.size();i++)
+        {
+            corp_bw_arr.write(String.valueOf(corp_times_arr.get(i)/60));
+            corp_bw_arr.newLine();
+        }
+
+        corp_bw_arr.close();
+        corp_fw_arr.close();
+        }
+
 
 
     public static void rosterChange(int i){
