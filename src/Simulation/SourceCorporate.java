@@ -22,33 +22,33 @@ public class SourceCorporate extends Source {
     private int interArrCnt;
 
 
+
+
     public SourceCorporate(ProductAcceptor q, CEventList l, String n) {
         super(q, l, n, false);
     }
 
-//    @Override
-//    public void execute(int type, double tme) {
-//        // show arrival
-//        System.out.println("Arrival at time = " + tme);
-//        // give arrived product to queue
-//        Product p = new Product("corporate client");
-//        p.stamp(tme, "Creation", name);
-//        queue.giveProduct(p);
-//        // generate duration
-//        if (meanArrTime > 0) {
-//            double duration = drawRandomExponential(meanArrTime);
-//            // Create a new event in the eventlist
-//            list.add(this, 0, tme + duration); //target,type,time
-//        } else {
-//            interArrCnt++;
-//            if (interarrivalTimes.length > interArrCnt) {
-//                list.add(this, 0, tme + interarrivalTimes[interArrCnt]); //target,type,time
-//            } else {
-//                list.stop();
-//            }
-//        }
-//
-//    }
+/*
+    @Override
+    public void execute(int type, double tme) {
+        // show arrival
+        System.out.println("Arrival at time = " + tme);
+        // give arrived product to queue
+        Product p = new Product("corporate client");
+        p.stamp(tme, "Creation", name);
+        queue.giveProduct(p);
+
+            interArrCnt++;
+            if (interarrivalTimes.length > interArrCnt) {
+                list.add(this, 0, tme + interarrivalTimes[interArrCnt]); //target,type,time
+            } else {
+                list.stop();
+            }
+
+
+    }
+
+ */
 
     //return the next arrival time of corporate customer call, given the previous one
     public static double getNextTimeCorporate(double t_1) {

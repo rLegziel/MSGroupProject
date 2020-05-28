@@ -15,10 +15,50 @@ import java.io.File;
 public class Simulation {
 
     public CEventList list;
-    public Queue queue;
-    public Source source;
+    public Queue consumer;
+    public Queue corp;
+    public Source sourcCon;
+    public Source sourcCorporate;
     public Sink sink;
-    public Machine mach;
+
+    public static CSACorporate corpAgent1;
+    public static CSACorporate corpAgent2;
+    public static CSACorporate corpAgent3;
+    public static CSACorporate corpAgent4;
+    public static CSACorporate corpAgent5;
+    public static CSACorporate corpAgent6;
+
+    public static CSAConsumer  consAgent1;
+    public static CSAConsumer  consAgent2;
+    public static CSAConsumer  consAgent3;
+    public static CSAConsumer  consAgent4;
+    public static CSAConsumer  consAgent5;
+    public static CSAConsumer  consAgent6;
+
+
+    public Simulation(){
+        this.list = new CEventList();
+        this.consumer = new Queue();
+        this.corp = new Queue();
+        this.sourcCon = new SourceConsumer(consumer, list, "Source consumer");
+        this.sourcCorporate = new SourceCorporate(corp, list, "Source corporate");
+        this.sink = new Sink("Sink 1");
+        this.corpAgent1 = new CSACorporate(list, corp, consumer, sink, "Corp1 agent");
+        this.corpAgent2 = new CSACorporate(list, corp, consumer, sink, "Corp2 agent");
+        this.corpAgent3 = new CSACorporate(list, corp, consumer, sink, "Corp3 agent");
+        this.corpAgent4 = new CSACorporate(list, corp, consumer, sink, "Corp4 agent");
+        this.corpAgent5 = new CSACorporate(list, corp, consumer, sink, "Corp5 agent");
+        this.corpAgent6 = new CSACorporate(list, corp, consumer, sink, "Corp6 agent");
+
+        this.consAgent1 = new CSAConsumer(list, consumer, sink, "consumer1 agent");
+        this.consAgent2 = new CSAConsumer(list, consumer, sink, "consumer2 agent");
+        this.consAgent3 = new CSAConsumer(list, consumer, sink, "consumer3 agent");
+        this.consAgent4 = new CSAConsumer(list, consumer, sink, "consumer4 agent");
+        this.consAgent5 = new CSAConsumer(list, consumer, sink, "consumer5 agent");
+        this.consAgent6 = new CSAConsumer(list, consumer, sink, "consumer6 agent");
+
+
+    }
 	
 
         /**
@@ -26,6 +66,8 @@ public class Simulation {
      */
     public static void main(String[] args) throws IOException {
 
+        Simulation sim  = new Simulation();
+        sim.list.start(24*3600);
         ArrayList<Double> consumers_times = new ArrayList<Double>();
         ArrayList<Double> corp_times = new ArrayList<Double>();
 
@@ -33,32 +75,10 @@ public class Simulation {
 	    //CEventList l = new CEventList();
         CEventList l2 = new CEventList();
 
-	// A queue for the machine
-        Queue consumer = new Queue();
-        Queue corp = new Queue();
-        // A source
-        SourceConsumer sourcCon = new SourceConsumer(consumer, l2, "Source consumer");
-        SourceCorporate sourcCorporate = new SourceCorporate(corp, l2, "Source corporate");
 
-        Sink si = new Sink("Sink 1");
-//	// A machine
-        CSACorporate corpAgent = new CSACorporate(l2, corp, consumer, si, "Corp agent");
-        CSACorporate corpAgent1 = new CSACorporate(l2, corp, consumer, si, "Corp agent");
-        CSACorporate corpAgent2 = new CSACorporate(l2, corp, consumer, si, "Corp agent");
-        CSACorporate corp2Agent = new CSACorporate(l2, corp, consumer, si, "Corp2 agent");
-        CSACorporate corp3Agent = new CSACorporate(l2, corp, consumer, si, "Corp3 agent");
-        CSAConsumer consAgent = new CSAConsumer(l2, consumer, si, "consumer agent");
-        CSAConsumer consAgent2 = new CSAConsumer(l2, consumer, si, "consumer agent");
-        CSAConsumer consAgent3 = new CSAConsumer(l2, consumer, si, "consumer agent");
-//	// start the eventlist
-        //l.start(24*3600); // 2000 is maximum time
-
-        l2.start(24*3600);
-        System.out.println(si.getNumber());
-
-        String[] ev = si.getEvents();
-        String[] stats = si.getStations();
-        double[] tim = si.getTimes();
+        String[] ev = sim.sink.getEvents();
+        String[] stats = sim.sink.getStations();
+        double[] tim = sim.sink.getTimes();
 
 
         for (int i = 0; i < ev.length; i++) {
@@ -94,6 +114,54 @@ public class Simulation {
         FileWriter corp_fw = new FileWriter(corp_file);
         BufferedWriter corp_bw = new BufferedWriter(corp_fw);
 
+    public static void rosterChange(int i){
+        if(i==0){
+            corpAgent1.setActive(true);
+            corpAgent2.setActive(true);
+            corpAgent3.setActive(true);
+            corpAgent4.setActive(false);
+            corpAgent5.setActive(false);
+            corpAgent6.setActive(false);
+
+            consAgent1.setActive(true);
+            consAgent2.setActive(true);
+            consAgent3.setActive(true);
+            consAgent4.setActive(false);
+            consAgent5.setActive(false);
+            consAgent6.setActive(false);
+        }else if(i==1){
+            corpAgent1.setActive(true);
+            corpAgent2.setActive(true);
+            corpAgent3.setActive(false);
+            corpAgent4.setActive(false);
+            corpAgent5.setActive(false);
+            corpAgent6.setActive(false);
+
+            consAgent1.setActive(true);
+            consAgent2.setActive(true);
+            consAgent3.setActive(true);
+            consAgent4.setActive(true);
+            consAgent5.setActive(false);
+            consAgent6.setActive(false);
+        }else if(i==2){
+            corpAgent1.setActive(true);
+            corpAgent2.setActive(false);
+            corpAgent3.setActive(false);
+            corpAgent4.setActive(false);
+            corpAgent5.setActive(false);
+            corpAgent6.setActive(false);
+
+            consAgent1.setActive(true);
+            consAgent2.setActive(false);
+            consAgent3.setActive(false);
+            consAgent4.setActive(false);
+            consAgent5.setActive(false);
+            consAgent6.setActive(false);
+
+
+        }
+    }
+
         for(int i=0;i<corp_times.size();i++)
         {
             corp_bw.write(String.valueOf(corp_times.get(i)));
@@ -109,5 +177,5 @@ public class Simulation {
 
 
     }
-    
+
 

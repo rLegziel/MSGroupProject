@@ -48,10 +48,10 @@ public class Source implements CProcess
 		meanArrTime = 0;
 		if (consumer == true) {
 			interarrivalTimes = SourceConsumer.getArrivalTimes();
-			System.out.println(interarrivalTimes.length);
+            System.out.println(interarrivalTimes.length);
 		} else {
 			interarrivalTimes = SourceCorporate.getArrivalTimes();
-			System.out.println(interarrivalTimes.length);
+            System.out.println(interarrivalTimes.length);
 		}
 		for(int i=0; i<interarrivalTimes.length; i++){ //target ?? type 0 -> arrival
 			list.add(this,0,interarrivalTimes[i]);
@@ -107,18 +107,18 @@ public class Source implements CProcess
 		Product p = new Product();
 		p.stamp(tme,"Creation",name);
 		queue.giveProduct(p);
-		// generate duration
+        // generate duration
 
 
-			interArrCnt++;
-			if(interarrivalTimes.length>interArrCnt)
-			{
-				list.add(this,0,tme+interarrivalTimes[interArrCnt]); //target,type,time
-			}
-			else
-			{
-				list.stop();
-			}
+        interArrCnt++;
+//			if(interarrivalTimes.length>interArrCnt)
+//			{
+//				list.add(this,0,tme+interarrivalTimes[interArrCnt]); //target,type,time
+//			}
+//			else
+//			{
+//				list.stop();
+//			}
 
 	}
 	
