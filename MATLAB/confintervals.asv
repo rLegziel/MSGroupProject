@@ -1,15 +1,4 @@
 function [lower_bound, upper_bound] = confintervals(x, alpha) 
-% confintervals - calculate confidence interval with the given alpha on for
-%                 the given data set
-%
-% INPUT:
-% x <- data set for which the confidence interval is calcluated.
-% alpha <- for instance, if alpha = 0.05 then the function finds 95% 
-%          confidence interval
-%
-% OUTPUT:
-% [lower_bound, upper_bound] <- the confidence interval
-%
     [m, n]= size(x);
     avg = mean(x);
     S = 0;
