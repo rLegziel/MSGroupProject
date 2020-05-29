@@ -174,7 +174,7 @@ public class Simulation {
 
             consAgent1 = new CSAConsumer(list, consumer, sink, " shift 2 cons agent 1");
             consAgent2 = new CSAConsumer(list, consumer, sink, " shift 2 cons agent 2");
-            consAgent3 = new CSAConsumer(list, consumer, sink, " shift 2 cons agent 3");
+//            consAgent3 = new CSAConsumer(list, consumer, sink, " shift 2 cons agent 3");
 
         } else if (i == 1) {
             resetAgents();

@@ -112,6 +112,7 @@ public class CEventList implements CProcess
                 Simulation.rosterChange(counter);
 				changeTime = simTime;
 				firstStop = true;
+                counter++;
 			} else if ((simTime <= changeTime + 28800) && (nextTime > changeTime + 28800)) {
 				// call method to change the shifts every eight hours
                 Simulation.rosterChange(counter);
