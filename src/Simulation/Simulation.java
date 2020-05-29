@@ -183,7 +183,8 @@ public class Simulation {
 
             consAgent1 = new CSAConsumer(list, consumer, sink, " shift 3 cons agent 1");
             consAgent2 = new CSAConsumer(list, consumer, sink, " shift 3 cons agent 2");
-            consAgent3 = new CSAConsumer(list, consumer, sink, " shift 3 cons agent 3");
+//            consAgent3 = new CSAConsumer(list, consumer, sink, " shift 3 cons agent 3");
+            consAgent3.setActive(false);
 
         } else if (i == 2) {
             resetAgents();
@@ -191,7 +192,8 @@ public class Simulation {
 
             consAgent1 = new CSAConsumer(list, consumer, sink, " shift 4 cons agent 1");
             consAgent2 = new CSAConsumer(list, consumer, sink, " shift 4 cons agent 2");
-            consAgent3 = new CSAConsumer(list, consumer, sink, " shift 4 cons agent 3");
+//            consAgent3 = new CSAConsumer(list, consumer, sink, " shift 4 cons agent 3");
+            consAgent3.setActive(false);
 
 
         }
